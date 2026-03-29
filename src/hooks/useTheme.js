@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     const saved = localStorage.getItem("theme");
@@ -10,9 +10,8 @@ export const useTheme = () => {
       setTheme(saved);
       document.documentElement.classList.toggle("dark", saved === "dark");
     } else {
-      // ✅ default = DARK (you can change to light if needed)
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark"); // ✅ IMPORTANT
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
   }, []);
 
@@ -22,7 +21,6 @@ export const useTheme = () => {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
 
-    // ✅ ALWAYS force correct state
     if (newTheme === "dark") {
       document.documentElement.classList.add("dark");
     } else {
